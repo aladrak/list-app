@@ -11,7 +11,7 @@ import com.example.list.R
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class TabFragment(): Fragment() {
+class TabFragment: Fragment() {
     private lateinit var collectionAdapter: CollectionAdapter
     private lateinit var viewPager: ViewPager2
 

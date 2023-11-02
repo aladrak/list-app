@@ -1,34 +1,21 @@
 package com.example.list.view;
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater;
 import android.view.View
-import android.view.ViewGroup;
-import android.widget.TextView
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
-import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.AbstractSavedStateViewModelFactory
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.savedstate.SavedStateRegistryOwner
-import androidx.viewpager2.widget.ViewPager2
 import com.example.list.R
 import com.example.list.databinding.FirstFragmentBinding
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -80,7 +67,7 @@ class FirstFragment (): Fragment(){
         super.onCreate(savedInstanceState)
         prefs = ListPrefs(requireContext())
         adapter.setDataSet(prefs.getFirstList())
-        setFragmentResultListener(FIR_ADD_ITEM_REQUEST_KEY) { requestKey, bundle ->
+        setFragmentResultListener(FIR_ADD_ITEM_REQUEST_KEY) { _, bundle ->
             bundle.getString(FIR_ADD_ITEM_TITLE_KEY)?.let {
                 val newItem = toListItemViewModel(it)
                 adapter.add(newItem)
@@ -88,7 +75,7 @@ class FirstFragment (): Fragment(){
         }
         requireActivity()
             .supportFragmentManager
-            .setFragmentResultListener(ADD_ITEM_REQUEST_KEY, this) { requestKey, bundle ->
+            .setFragmentResultListener(ADD_ITEM_REQUEST_KEY, this) { _, bundle ->
             bundle.getString(ADD_ITEM_TITLE_KEY)?.let {
                 val newItem = toListItemViewModel(it)
                 adapter.add(newItem)
@@ -96,7 +83,7 @@ class FirstFragment (): Fragment(){
         }
         requireActivity()
             .supportFragmentManager
-            .setFragmentResultListener(EDIT_ITEM_REQUEST_KEY, this) { requestKey, bundle ->
+            .setFragmentResultListener(EDIT_ITEM_REQUEST_KEY, this) { _, bundle ->
             val position = bundle.getInt(ADD_ITEM_POSITION_KEY)
             val editItem = toListItemViewModel(bundle.getString(ADD_ITEM_TITLE_KEY, ""))
             adapter.edit(position, editItem)
@@ -107,7 +94,7 @@ class FirstFragment (): Fragment(){
             inflater:LayoutInflater,
             container:ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FirstFragmentBinding.inflate(inflater, container, false).apply {
             list.layoutManager = LinearLayoutManager(requireContext())
             list.adapter = adapter

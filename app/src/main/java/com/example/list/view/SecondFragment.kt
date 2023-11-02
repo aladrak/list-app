@@ -1,31 +1,20 @@
 package com.example.list.view;
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater;
 import android.view.View
 import android.view.ViewGroup;
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
-import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.AbstractSavedStateViewModelFactory
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.savedstate.SavedStateRegistryOwner
 import com.example.list.R
-import com.example.list.databinding.FirstFragmentBinding
 import com.example.list.databinding.SecondFragmentBinding
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -42,7 +31,7 @@ class SecondFragment (): Fragment() {
             .commit()
     }
 
-    // Детектор свайпа
+    /* Детектор свайпа */
     private var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(
         0,
         ItemTouchHelper.LEFT
@@ -78,25 +67,27 @@ class SecondFragment (): Fragment() {
         prefs = ListPrefs(requireContext())
         adapter.setDataSet(prefs.getSecondList())
         // Сохранение добавления из первого списка
-        setFragmentResultListener(SEC_ADD_ITEM_REQUEST_KEY) { requestKey, bundle ->
+        setFragmentResultListener(SEC_ADD_ITEM_REQUEST_KEY) { _, bundle ->
             bundle.getString(SEC_ADD_ITEM_TITLE_KEY)?.let {
                 val newItem = toListItemViewModel(it)
                 adapter.add(newItem)
             }
         }
 //        // Сохранение редактирования
-//        setFragmentResultListener(EDIT_ITEM_REQUEST_KEY) { requestKey, bundle ->
-//            val position = bundle.getInt(ADD_ITEM_POSITION_KEY)
-//            val editItem = toListItemViewModel(bundle.getString(ADD_ITEM_TITLE_KEY, ""))
-//            adapter.edit(position, editItem)
-//        }
+        requireActivity()
+            .supportFragmentManager.
+            setFragmentResultListener(SEC_EDIT_ITEM_REQUEST_KEY, this) { _, bundle ->
+            val position = bundle.getInt(SEC_ADD_ITEM_POSITION_KEY)
+            val editItem = toListItemViewModel(bundle.getString(SEC_ADD_ITEM_TITLE_KEY, ""))
+            adapter.edit(position, editItem)
+        }
     }
 
     override fun onCreateView(
         inflater:LayoutInflater,
         container:ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = SecondFragmentBinding.inflate(inflater, container, false).apply {
             secondList.layoutManager = LinearLayoutManager(requireContext())
             secondList.adapter = adapter
@@ -127,10 +118,10 @@ class SecondFragment (): Fragment() {
         const val SEC_ADD_ITEM_REQUEST_KEY = "SEC_ADD_ITEM_REQUEST_KEY"
         const val SEC_ADD_ITEM_TITLE_KEY = "SEC_ADD_ITEM_TITLE_KEY"
 
-        const val EDIT_ITEM_REQUEST_KEY = "EDIT_ITEM_REQUEST_KEY"
+        const val SEC_EDIT_ITEM_REQUEST_KEY = "SEC_EDIT_ITEM_REQUEST_KEY"
 
         const val ADD_ITEM_TITLE_KEY = "ADD_ITEM_TITLE_KEY"
-        const val ADD_ITEM_POSITION_KEY = "ADD_ITEM_EXTRA_KEY"
+        const val SEC_ADD_ITEM_POSITION_KEY = "SEC_ADD_ITEM_EXTRA_KEY"
 
         fun toListItemViewModel(str: String) : ListItemViewModel = Json.decodeFromString<ListItemViewModel>(str)
     }

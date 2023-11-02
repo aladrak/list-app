@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
-import com.example.list.R
 import com.example.list.databinding.AddItemFragmentBinding
 import com.example.list.view.FirstFragment.Companion.ADD_ITEM_POSITION_KEY
 import com.example.list.view.FirstFragment.Companion.ADD_ITEM_REQUEST_KEY
@@ -31,7 +29,7 @@ class AddItemFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = AddItemFragmentBinding.inflate(inflater, container, false).apply {
+    ): View = AddItemFragmentBinding.inflate(inflater, container, false).apply {
         title.setText(itemTitle ?: "")
         description.setText(itemDescription ?: "")
 

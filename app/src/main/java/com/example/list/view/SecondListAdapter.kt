@@ -2,7 +2,6 @@ package com.example.list.view;
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -11,7 +10,6 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.list.R
 import com.example.list.databinding.ListItemBinding
-import kotlinx.serialization.json.Json
 
 class SecondListAdapter (
         initialDataSet: List<ListItemViewModel>,
@@ -22,8 +20,8 @@ class SecondListAdapter (
 
     inner class ListViewHolder (private val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val textView: TextView = binding.itemText
-        val moreButton: AppCompatButton = binding.itemMore
+        private val textView: TextView = binding.itemText
+        private val moreButton: AppCompatButton = binding.itemMore
 
         var viewModel: ListItemViewModel? = null
             set(value) {
@@ -38,10 +36,16 @@ class SecondListAdapter (
                     setOnMenuItemClickListener {
                         when (it.itemId) {
                             R.id.action_edit -> {
-                                onButtonClick(adapterPosition,
-                                    textView.text.toString(),
-                                    dataSet[adapterPosition].description
-                                )
+                                Toast.makeText(
+                                    moreButton.context,
+                                    "Unavailable.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+//                                onButtonClick(
+//                                    adapterPosition,
+//                                    textView.text.toString(),
+//                                    dataSet[adapterPosition].description
+//                                )
                             }
                             R.id.action_del -> {
                                 Toast.makeText(

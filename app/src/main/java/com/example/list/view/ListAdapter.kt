@@ -2,7 +2,6 @@ package com.example.list.view
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -11,7 +10,6 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.list.R
 import com.example.list.databinding.ListItemBinding
-import kotlinx.serialization.json.Json
 
 class ListAdapter (
         initialDataSet: List<ListItemViewModel>,
