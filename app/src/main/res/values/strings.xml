@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">list</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_del">Delete</string>
+    <string name="toast_del">Item deleted.</string>
+    <string name="hint_desc">Descripition</string>
+    <string name="hint_title">Title</string>
+    <string name="btn_add"></string>
+</resources>
