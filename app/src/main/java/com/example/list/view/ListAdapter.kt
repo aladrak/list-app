@@ -23,7 +23,6 @@ class ListAdapter (
     inner class ListViewHolder (private val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val textView: TextView = binding.itemText
-        val descView: TextView = binding.itemDesc
         val moreButton: AppCompatButton = binding.itemMore
 
         var viewModel: ListItemViewModel? = null

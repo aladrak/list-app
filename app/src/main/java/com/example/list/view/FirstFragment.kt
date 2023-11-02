@@ -144,9 +144,11 @@ class FirstFragment (): Fragment(){
         const val SEC_ADD_ITEM_REQUEST_KEY = "SEC_ADD_ITEM_REQUEST_KEY"
         const val SEC_ADD_ITEM_TITLE_KEY = "SEC_ADD_ITEM_TITLE_KEY"
 
+        //
         const val ADD_ITEM_REQUEST_KEY = "ADD_ITEM_REQUEST_KEY"
         const val EDIT_ITEM_REQUEST_KEY = "EDIT_ITEM_REQUEST_KEY"
 
+        //
         const val ADD_ITEM_TITLE_KEY = "ADD_ITEM_TITLE_KEY"
         const val ADD_ITEM_POSITION_KEY = "ADD_ITEM_EXTRA_KEY"
 

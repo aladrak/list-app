@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">todo list</string>
+    <string name="action_edit">Редактировать</string>
+    <string name="action_del">Удалить</string>
+    <string name="toast_del">Элемент удалён.</string>
+    <string name="hint_desc">Описание</string>
+    <string name="hint_title">Заголовок</string>
+    <string name="btn_add"></string>
+</resources>
